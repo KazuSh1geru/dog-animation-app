@@ -1,45 +1,19 @@
-const canvas = document.getElementById("dogCanvas");
-const ctx = canvas.getContext("2d");
+// Load the image
+const dogImage = new Image();
+dogImage.src = './dog.png'; // Replace with the path to your image
 
-canvas.width = 400;
-canvas.height = 400;
+const canvas = document.getElementById('dogCanvas');
+const ctx = canvas.getContext('2d');
 
-let dogPosition = 0;
-let animationId;
+let dogPosition = 0; // Initialize the position of the dog
+let animationId = null; // Initialize the animation ID
 
 function drawDog(x) {
     // Clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw a simple stick dog (similar to your image)
-    ctx.beginPath();
-    // Head
-    ctx.rect(x + 150, 120, 50, 50);
-    // Body
-    ctx.moveTo(x + 175, 170);
-    ctx.lineTo(x + 175, 250);
-    // Legs
-    ctx.moveTo(x + 175, 250);
-    ctx.lineTo(x + 160, 300);
-    ctx.moveTo(x + 175, 250);
-    ctx.lineTo(x + 190, 300);
-    // Tail
-    ctx.moveTo(x + 200, 230);
-    ctx.lineTo(x + 220, 210);
-    ctx.stroke();
-
-    // Ears and eyes
-    ctx.beginPath();
-    ctx.moveTo(x + 150, 120);
-    ctx.lineTo(x + 140, 110); // Left ear
-    ctx.moveTo(x + 200, 120);
-    ctx.lineTo(x + 210, 110); // Right ear
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(x + 165, 140, 5, 0, Math.PI * 2); // Left eye
-    ctx.arc(x + 185, 140, 5, 0, Math.PI * 2); // Right eye
-    ctx.stroke();
+    // Draw the image
+    ctx.drawImage(dogImage, x, 120, 50, 50); // Adjust the position and size as needed
 }
 
 function animateDog() {
@@ -49,8 +23,11 @@ function animateDog() {
     drawDog(dogPosition);
 }
 
-document.getElementById("startButton").addEventListener("click", () => {
-    if (!animationId) {
-        animateDog();
-    }
-});
+// Ensure the image is loaded before starting the animation
+dogImage.onload = () => {
+    document.getElementById("startButton").addEventListener("click", () => {
+        if (!animationId) {
+            animateDog();
+        }
+    });
+};
