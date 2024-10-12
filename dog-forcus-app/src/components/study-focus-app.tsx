@@ -2,114 +2,171 @@
 
 import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
-import { Dog, Smile } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export function StudyFocusAppComponent() {
-  const [isStarted, setIsStarted] = useState(false)
-  const [showModal, setShowModal] = useState(false)
-  const [timer, setTimer] = useState(0)
-  const [isRunning, setIsRunning] = useState(false)
+  const [screen, setScreen] = useState<'start' | 'timer' | 'complete'>('start')
+  const [showBubble, setShowBubble] = useState(false)
+  const [timerDuration, setTimerDuration] = useState(0)
+  const [timeLeft, setTimeLeft] = useState(0)
   const [studyTime, setStudyTime] = useState(0)
-  const [isCompleted, setIsCompleted] = useState(false)
 
   useEffect(() => {
-    let interval: NodeJS.Timeout
-    if (isRunning && timer > 0) {
+    let interval: NodeJS.Timeout | null = null
+    if (screen === 'timer' && timeLeft > 0) {
       interval = setInterval(() => {
-        setTimer((prevTimer) => prevTimer - 1)
+        setTimeLeft((prevTime) => prevTime - 1)
         setStudyTime((prevTime) => prevTime + 1)
       }, 1000)
-    } else if (timer === 0 && isRunning) {
-      setIsRunning(false)
-      setIsCompleted(true)
+    } else if (timeLeft === 0 && screen === 'timer') {
+      setScreen('complete')
     }
-    return () => clearInterval(interval)
-  }, [isRunning, timer])
+    return () => {
+      if (interval) clearInterval(interval)
+    }
+  }, [screen, timeLeft])
 
-  const handleStart = () => {
-    setShowModal(true)
+  const startTimer = () => {
+    setTimeLeft(timerDuration * 60)
+    setScreen('timer')
+    setShowBubble(false)
   }
 
-  const handleSetTimer = (minutes: number) => {
-    setTimer(minutes * 60)
-    setShowModal(false)
-    setIsStarted(true)
-    setIsRunning(true)
-  }
-
-  const handleStop = () => {
-    setIsRunning(false)
-    setIsCompleted(true)
-  }
-
-  const handleReset = () => {
-    setIsStarted(false)
-    setIsCompleted(false)
-    setStudyTime(0)
+  const stopTimer = () => {
+    setScreen('complete')
   }
 
   const formatTime = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60)
-    const remainingSeconds = seconds % 60
-    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
   }
 
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-100 to-blue-200 p-4">
-      {!isStarted ? (
-        // スタート画面
-        <div className="text-center">
-          <Dog className="w-32 h-32 mx-auto mb-4 text-blue-500" />
-          <Button onClick={handleStart} size="lg" className="mt-4">
-            スタート
-          </Button>
-        </div>
-      ) : isRunning ? (
-        // タイマー実行画面
-        <div className="text-center">
-          <h2 className="text-4xl font-bold mb-4">{formatTime(timer)}</h2>
-          <div className="w-64 h-64 relative">
-            <Dog className="w-full h-full text-blue-500 animate-walk" />
-          </div>
-          <Button onClick={handleStop} variant="destructive" className="mt-4">
-            中止
-          </Button>
-        </div>
-      ) : isCompleted ? (
-        // 完了画面
-        <div className="text-center">
-          <Smile className="w-32 h-32 mx-auto mb-4 text-yellow-500" />
-          <Alert className="mb-4">
-            <AlertTitle>おめでとう！</AlertTitle>
-            <AlertDescription>
-              {Math.floor(studyTime / 60)}分集中したよ！
-            </AlertDescription>
-          </Alert>
-          <Button onClick={handleReset} className="mt-4">
-            ホームに戻る
-          </Button>
-        </div>
-      ) : null}
+  const SpeechBubble = () => (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.8 }}
+      className="absolute left-1/2 bottom-full mb-4 transform -translate-x-1/2"
+    >
+      <div className="bg-white p-4 rounded-lg shadow-lg relative">
+        <div className="text-lg font-bold mb-2">タイマーをセット</div>
+        <Input
+          type="number"
+          placeholder="分数を入力"
+          value={timerDuration}
+          onChange={(e) => setTimerDuration(Number(e.target.value))}
+          className="mb-2"
+        />
+        <Button onClick={startTimer} className="w-full">開始</Button>
+        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rotate-45"></div>
+      </div>
+    </motion.div>
+  )
 
-      {/* タイマーセットモーダル */}
-      <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>タイマーをセット</DialogTitle>
-            <DialogDescription>
-              勉強時間（分）を入力してください。
-            </DialogDescription>
-          </DialogHeader>
-          <Input
-            type="number"
-            placeholder="分"
-            onChange={(e) => handleSetTimer(parseInt(e.target.value))}
-          />
-        </DialogContent>
-      </Dialog>
+  const WalkingDog = () => (
+    <div className="relative w-full h-64 overflow-hidden bg-sky-200">
+      {/* Sun */}
+      <div className="absolute top-4 left-4 w-16 h-16 bg-yellow-300 rounded-full" />
+      
+      {/* Moving grass */}
+      <motion.div
+        className="absolute bottom-0 left-0 w-[200%] h-16"
+        animate={{
+          x: [0, "-50%"],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          repeatType: "loop",
+          ease: "linear",
+        }}
+      >
+        <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <path d="M0 50 Q 25 0, 50 50 T 100 50 V100 H0" fill="#4ade80" />
+        </svg>
+      </motion.div>
+      
+      {/* Dog */}
+      <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2">
+        <svg width="100" height="100" viewBox="0 0 100 100" className="w-24 h-24">
+          <circle cx="50" cy="50" r="40" fill="#8B4513" />
+          <circle cx="35" cy="40" r="5" fill="black" />
+          <circle cx="65" cy="40" r="5" fill="black" />
+          <path d="M 40 60 Q 50 70 60 60" stroke="black" strokeWidth="2" fill="none" />
+          <circle cx="30" cy="80" r="10" fill="#8B4513" />
+          <circle cx="70" cy="80" r="10" fill="#8B4513" />
+          <path d="M 70 20 L 90 10 L 80 30" fill="#8B4513" />
+        </svg>
+      </div>
+    </div>
+  )
+
+  const Dog = () => (
+    <svg width="100" height="100" viewBox="0 0 100 100" className="w-24 h-24">
+      <circle cx="50" cy="50" r="40" fill="#8B4513" />
+      <circle cx="35" cy="40" r="5" fill="black" />
+      <circle cx="65" cy="40" r="5" fill="black" />
+      <path d="M 40 60 Q 50 70 60 60" stroke="black" strokeWidth="2" fill="none" />
+      <circle cx="30" cy="80" r="10" fill="#8B4513" />
+      <circle cx="70" cy="80" r="10" fill="#8B4513" />
+      <path d="M 70 20 L 90 10 L 80 30" fill="#8B4513" />
+    </svg>
+  )
+
+  const HappyDog = () => (
+    <motion.svg
+      width="100"
+      height="100"
+      viewBox="0 0 100 100"
+      className="w-24 h-24"
+      animate={{ y: [0, -10, 0] }}
+      transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
+    >
+      <circle cx="50" cy="50" r="40" fill="#8B4513" />
+      <circle cx="35" cy="40" r="5" fill="black" />
+      <circle cx="65" cy="40" r="5" fill="black" />
+      <path d="M 30 60 Q 50 80 70 60" stroke="black" strokeWidth="2" fill="none" />
+      <circle cx="30" cy="80" r="10" fill="#8B4513" />
+      <circle cx="70" cy="80" r="10" fill="#8B4513" />
+      <path d="M 70 20 L 90 10 L 80 30" fill="#8B4513" />
+    </motion.svg>
+  )
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+      {screen === 'start' && (
+        <div className="text-center relative">
+          <div
+            className="mx-auto mb-4 cursor-pointer hover:scale-110 transition-transform"
+            onClick={() => setShowBubble(!showBubble)}
+          >
+            <Dog />
+          </div>
+          <p className="text-lg font-medium text-gray-600">犬をクリックしてスタート</p>
+          <AnimatePresence>
+            {showBubble && <SpeechBubble />}
+          </AnimatePresence>
+        </div>
+      )}
+
+      {screen === 'timer' && (
+        <div className="text-center w-full">
+          <div className="text-4xl font-bold mb-4">{formatTime(timeLeft)}</div>
+          <WalkingDog />
+          <Button onClick={stopTimer} className="mt-4">タイマーを止める</Button>
+        </div>
+      )}
+
+      {screen === 'complete' && (
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">完了！</h2>
+          <HappyDog />
+          <p className="my-4">勉強時間: {formatTime(studyTime)}</p>
+          <Button onClick={() => setScreen('start')}>もう一度</Button>
+        </div>
+      )}
     </div>
   )
 }
