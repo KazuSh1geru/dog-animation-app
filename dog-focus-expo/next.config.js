@@ -1,4 +1,4 @@
-const { withExpo } = require("@expo/next-adapter");
+import { withExpo } from "@expo/next-adapter";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = withExpo({
@@ -15,4 +15,4 @@ const nextConfig = withExpo({
   },
 });
 
-module.exports = nextConfig;
+export default nextConfig;
