@@ -87,7 +87,7 @@ export function StudyFocusAppComponent() {
       )}
 
       {screen === "timer" && (
-        <div className="relative w-full h-full overflow-hidden">
+        <div className="relative w-full h-full overflow-hidden flex items-center justify-center">
           {/* Timer and Dog */}
           <div className="relative z-10 text-center w-full">
             <div className="text-4xl font-bold mb-4">
@@ -95,7 +95,9 @@ export function StudyFocusAppComponent() {
             </div>
 
             {/* Dog */}
-            <Walking />
+            <div className="flex justify-center">
+              <Walking />
+            </div>
 
             <Button onClick={stopTimer} className="mt-4">
               タイマーを止める
