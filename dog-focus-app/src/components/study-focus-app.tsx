@@ -66,27 +66,9 @@ export function StudyFocusAppComponent() {
   )
 
   const WalkingDog = () => (
-    <div className="relative w-full h-64 overflow-hidden bg-sky-200">
-      {/* Sun */}
-      <div className="absolute top-4 left-4 w-16 h-16 bg-yellow-300 rounded-full" />
-
-      {/* Moving grass */}
-      <motion.div
-        className="absolute bottom-0 left-0 w-[200%] h-16"
-        animate={{
-          x: [0, "-50%"],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          repeatType: "loop",
-          ease: "linear",
-        }}
-      >
-        <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <path d="M0 50 Q 25 0, 50 50 T 100 50 V100 H0" fill="#4ade80" />
-        </svg>
-      </motion.div>
+    <div className="relative w-full h-64 overflow-hidden">
+      {/* Background GIF */}
+      <img src="/images/moderate_continuous_cloud_animation.gif" alt="Background" className="absolute inset-0 w-full h-full object-cover" />
 
       {/* Dog */}
       <motion.div
