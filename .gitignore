@@ -1,3 +1,6 @@
+processed_video_frames/
+video_frames/
+
 # Logs
 logs
 *.log

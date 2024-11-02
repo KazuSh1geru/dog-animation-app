@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "dog-animation-app"
+version = "0.1.0"
+description = ""
+authors = ["KazuSh1geru"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+opencv-python = "^4.10.0.84"
+pillow = "^11.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

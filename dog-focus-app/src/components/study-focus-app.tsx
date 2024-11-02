@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
-import { DogAnimation } from "@/components/DogAnimation";
+import { Happy } from "@/components/DogAnimation";
 import { WalkingDog } from "@/components/Dog";
 export function StudyFocusAppComponent() {
   const [screen, setScreen] = useState<"start" | "timer" | "complete">("start");
@@ -78,7 +78,7 @@ export function StudyFocusAppComponent() {
             className="mx-auto mb-4 cursor-pointer hover:scale-110 transition-transform"
             onClick={() => setShowBubble(!showBubble)}
           >
-            <DogAnimation />
+            <Happy />
           </div>
           <p className="text-lg font-medium text-gray-600">
             犬をクリックしてスタート
@@ -108,7 +108,7 @@ export function StudyFocusAppComponent() {
       {screen === "complete" && (
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4">完了！</h2>
-          <DogAnimation />
+          <Happy />
           <p className="my-4">勉強時間: {formatTime(studyTime)}</p>
           <Button onClick={() => setScreen("start")}>もう一度</Button>
         </div>
