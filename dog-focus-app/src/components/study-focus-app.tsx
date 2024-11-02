@@ -1,47 +1,49 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from 'react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function StudyFocusAppComponent() {
-  const [screen, setScreen] = useState<'start' | 'timer' | 'complete'>('start')
-  const [showBubble, setShowBubble] = useState(false)
-  const [timerDuration, setTimerDuration] = useState(0)
-  const [timeLeft, setTimeLeft] = useState(0)
-  const [studyTime, setStudyTime] = useState(0)
+  const [screen, setScreen] = useState<"start" | "timer" | "complete">("start");
+  const [showBubble, setShowBubble] = useState(false);
+  const [timerDuration, setTimerDuration] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [studyTime, setStudyTime] = useState(0);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout | null = null
-    if (screen === 'timer' && timeLeft > 0) {
+    let interval: NodeJS.Timeout | null = null;
+    if (screen === "timer" && timeLeft > 0) {
       interval = setInterval(() => {
-        setTimeLeft((prevTime) => prevTime - 1)
-        setStudyTime((prevTime) => prevTime + 1)
-      }, 1000)
-    } else if (timeLeft === 0 && screen === 'timer') {
-      setScreen('complete')
+        setTimeLeft((prevTime) => prevTime - 1);
+        setStudyTime((prevTime) => prevTime + 1);
+      }, 1000);
+    } else if (timeLeft === 0 && screen === "timer") {
+      setScreen("complete");
     }
     return () => {
-      if (interval) clearInterval(interval)
-    }
-  }, [screen, timeLeft])
+      if (interval) clearInterval(interval);
+    };
+  }, [screen, timeLeft]);
 
   const startTimer = () => {
-    setTimeLeft(timerDuration * 60)
-    setScreen('timer')
-    setShowBubble(false)
-  }
+    setTimeLeft(timerDuration * 60);
+    setScreen("timer");
+    setShowBubble(false);
+  };
 
   const stopTimer = () => {
-    setScreen('complete')
-  }
+    setScreen("complete");
+  };
 
   const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60)
-    const secs = seconds % 60
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
-  }
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, "0")}:${secs
+      .toString()
+      .padStart(2, "0")}`;
+  };
 
   const SpeechBubble = () => (
     <motion.div
@@ -59,11 +61,13 @@ export function StudyFocusAppComponent() {
           onChange={(e) => setTimerDuration(Number(e.target.value))}
           className="mb-2"
         />
-        <Button onClick={startTimer} className="w-full">開始</Button>
+        <Button onClick={startTimer} className="w-full">
+          開始
+        </Button>
         <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rotate-45"></div>
       </div>
     </motion.div>
-  )
+  );
 
   const WalkingDog = () => (
     <motion.div
@@ -71,9 +75,13 @@ export function StudyFocusAppComponent() {
       animate={{ y: [0, -10, 0] }}
       transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
     >
-      <img src="/images/dog_walking.png" alt="Walking Dog" className="w-full h-full" />
+      <img
+        src="/images/dog_walking.png"
+        alt="Walking Dog"
+        className="w-full h-full"
+      />
     </motion.div>
-  )
+  );
 
   const Dog = () => (
     <motion.div
@@ -83,47 +91,63 @@ export function StudyFocusAppComponent() {
     >
       <img src="/images/dog_default.png" alt="Dog" className="w-full h-full" />
     </motion.div>
-  )
+  );
+
+  const DogAnimation = () => (
+    <div className="w-48 h-48">
+      <video
+        src="/videos/dog_animation.mp4"
+        className="w-full h-full"
+        autoPlay
+        loop
+        muted
+      />
+    </div>
+  );
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      {screen === 'start' && (
+      {screen === "start" && (
         <div className="text-center relative">
           <div
             className="mx-auto mb-4 cursor-pointer hover:scale-110 transition-transform"
             onClick={() => setShowBubble(!showBubble)}
           >
-            <Dog />
+            <DogAnimation />
           </div>
-          <p className="text-lg font-medium text-gray-600">犬をクリックしてスタート</p>
-          <AnimatePresence>
-            {showBubble && <SpeechBubble />}
-          </AnimatePresence>
+          <p className="text-lg font-medium text-gray-600">
+            犬をクリックしてスタート
+          </p>
+          <AnimatePresence>{showBubble && <SpeechBubble />}</AnimatePresence>
         </div>
       )}
 
-      {screen === 'timer' && (
+      {screen === "timer" && (
         <div className="relative w-full h-full overflow-hidden">
           {/* Timer and Dog */}
           <div className="relative z-10 text-center w-full">
-            <div className="text-4xl font-bold mb-4">{formatTime(timeLeft)}</div>
+            <div className="text-4xl font-bold mb-4">
+              {formatTime(timeLeft)}
+            </div>
 
             {/* Dog */}
             <WalkingDog />
 
-            <Button onClick={stopTimer} className="mt-4">タイマーを止める</Button>
+            <Button onClick={stopTimer} className="mt-4">
+              タイマーを止める
+            </Button>
           </div>
         </div>
       )}
 
-      {screen === 'complete' && (
+      {screen === "complete" && (
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4">完了！</h2>
           <Dog />
           <p className="my-4">勉強時間: {formatTime(studyTime)}</p>
-          <Button onClick={() => setScreen('start')}>もう一度</Button>
+          <Button onClick={() => setScreen("start")}>もう一度</Button>
         </div>
       )}
     </div>
-  )
+  );
 }
