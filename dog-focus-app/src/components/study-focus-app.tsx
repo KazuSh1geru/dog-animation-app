@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 import { DogAnimation } from "@/components/DogAnimation";
-import { WalkingDog, Dog } from "@/components/Dog";
+import { WalkingDog } from "@/components/Dog";
 export function StudyFocusAppComponent() {
   const [screen, setScreen] = useState<"start" | "timer" | "complete">("start");
   const [showBubble, setShowBubble] = useState(false);
@@ -108,7 +108,7 @@ export function StudyFocusAppComponent() {
       {screen === "complete" && (
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4">完了！</h2>
-          <Dog />
+          <DogAnimation />
           <p className="my-4">勉強時間: {formatTime(studyTime)}</p>
           <Button onClick={() => setScreen("start")}>もう一度</Button>
         </div>
