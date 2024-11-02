@@ -89,14 +89,18 @@ export function StudyFocusAppComponent() {
       </motion.div>
 
       {/* Dog */}
-      <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2">
-        <img src="/images/dog_walking.png" alt="DogWalking" className="w-48 h-48" />
-      </div>
+      <motion.div
+        className="absolute bottom-16 left-1/2 transform -translate-x-1/2"
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
+      >
+        <img src="/images/dog_walking.png" alt="Walking Dog" className="w-48 h-48" />
+      </motion.div>
     </div>
   )
 
   const Dog = () => (
-    <img src="/images/dog_default.png" alt="DogWalking" className="w-48 h-48" />
+    <img src="/images/dog_default.png" alt="Dog" className="w-48 h-48" />
   )
 
   const HappyDog = () => (
