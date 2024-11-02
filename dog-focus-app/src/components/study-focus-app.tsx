@@ -69,7 +69,7 @@ export function StudyFocusAppComponent() {
     <div className="relative w-full h-64 overflow-hidden bg-sky-200">
       {/* Sun */}
       <div className="absolute top-4 left-4 w-16 h-16 bg-yellow-300 rounded-full" />
-      
+
       {/* Moving grass */}
       <motion.div
         className="absolute bottom-0 left-0 w-[200%] h-16"
@@ -90,29 +90,13 @@ export function StudyFocusAppComponent() {
       
       {/* Dog */}
       <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2">
-        <svg width="100" height="100" viewBox="0 0 100 100" className="w-24 h-24">
-          <circle cx="50" cy="50" r="40" fill="#8B4513" />
-          <circle cx="35" cy="40" r="5" fill="black" />
-          <circle cx="65" cy="40" r="5" fill="black" />
-          <path d="M 40 60 Q 50 70 60 60" stroke="black" strokeWidth="2" fill="none" />
-          <circle cx="30" cy="80" r="10" fill="#8B4513" />
-          <circle cx="70" cy="80" r="10" fill="#8B4513" />
-          <path d="M 70 20 L 90 10 L 80 30" fill="#8B4513" />
-        </svg>
+        <img src="/images/dog_default.png" alt="Dog" className="w-24 h-24" />
       </div>
     </div>
   )
 
   const Dog = () => (
-    <svg width="100" height="100" viewBox="0 0 100 100" className="w-24 h-24">
-      <circle cx="50" cy="50" r="40" fill="#8B4513" />
-      <circle cx="35" cy="40" r="5" fill="black" />
-      <circle cx="65" cy="40" r="5" fill="black" />
-      <path d="M 40 60 Q 50 70 60 60" stroke="black" strokeWidth="2" fill="none" />
-      <circle cx="30" cy="80" r="10" fill="#8B4513" />
-      <circle cx="70" cy="80" r="10" fill="#8B4513" />
-      <path d="M 70 20 L 90 10 L 80 30" fill="#8B4513" />
-    </svg>
+    <img src="/images/dog_default.png" alt="Dog" className="w-24 h-24" />
   )
 
   const HappyDog = () => (
