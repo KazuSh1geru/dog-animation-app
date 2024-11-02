@@ -3,7 +3,8 @@
 export const DogAnimation = () => (
     <div className="w-48 h-48">
       <img
-        src="/images/dog_animation.gif"
+        // src="/images/dog_animation.gif"
+        src="/images/animated_transparent_video.png"
         className="w-full h-full"
         alt="Dog Animation"
       />
