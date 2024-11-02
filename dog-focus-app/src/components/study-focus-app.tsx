@@ -66,19 +66,13 @@ export function StudyFocusAppComponent() {
   )
 
   const WalkingDog = () => (
-    <div className="relative w-full h-64 overflow-hidden">
-      {/* Background GIF */}
-      <img src="/images/moderate_continuous_cloud_animation.gif" alt="Background" className="absolute inset-0 w-full h-full object-cover" />
-
-      {/* Dog */}
-      <motion.div
-        className="absolute bottom-16 left-1/2 transform -translate-x-1/2"
-        animate={{ y: [0, -10, 0] }}
-        transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
-      >
-        <img src="/images/dog_walking.png" alt="Walking Dog" className="w-48 h-48" />
-      </motion.div>
-    </div>
+    <motion.div
+      className="w-48 h-48 mx-auto"
+      animate={{ y: [0, -10, 0] }}
+      transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
+    >
+      <img src="/images/dog_walking.png" alt="Walking Dog" className="w-full h-full" />
+    </motion.div>
   )
 
   const Dog = () => (
@@ -119,10 +113,19 @@ export function StudyFocusAppComponent() {
       )}
 
       {screen === 'timer' && (
-        <div className="text-center w-full">
-          <div className="text-4xl font-bold mb-4">{formatTime(timeLeft)}</div>
-          <WalkingDog />
-          <Button onClick={stopTimer} className="mt-4">タイマーを止める</Button>
+        <div className="relative w-full h-full overflow-hidden">
+          {/* Background GIF */}
+          <img src="/path/to/moderate_continuous_cloud_animation.gif" alt="Background" className="absolute inset-0 w-full h-full object-cover -z-10" />
+
+          {/* Timer and Dog */}
+          <div className="relative z-10 text-center w-full">
+            <div className="text-4xl font-bold mb-4">{formatTime(timeLeft)}</div>
+            
+            {/* Dog */}
+            <WalkingDog />
+
+            <Button onClick={stopTimer} className="mt-4">タイマーを止める</Button>
+          </div>
         </div>
       )}
 
