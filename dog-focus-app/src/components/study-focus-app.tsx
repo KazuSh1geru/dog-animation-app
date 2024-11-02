@@ -66,37 +66,13 @@ export function StudyFocusAppComponent() {
   )
 
   const WalkingDog = () => (
-    <div className="relative w-full h-64 overflow-hidden bg-sky-200">
-      {/* Sun */}
-      <div className="absolute top-4 left-4 w-16 h-16 bg-yellow-300 rounded-full" />
-
-      {/* Moving grass */}
-      <motion.div
-        className="absolute bottom-0 left-0 w-[200%] h-16"
-        animate={{
-          x: [0, "-50%"],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          repeatType: "loop",
-          ease: "linear",
-        }}
-      >
-        <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <path d="M0 50 Q 25 0, 50 50 T 100 50 V100 H0" fill="#4ade80" />
-        </svg>
-      </motion.div>
-
-      {/* Dog */}
-      <motion.div
-        className="absolute bottom-16 left-1/2 transform -translate-x-1/2"
-        animate={{ y: [0, -10, 0] }}
-        transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
-      >
-        <img src="/images/dog_walking.png" alt="Walking Dog" className="w-48 h-48" />
-      </motion.div>
-    </div>
+    <motion.div
+      className="w-48 h-48 mx-auto"
+      animate={{ y: [0, -10, 0] }}
+      transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
+    >
+      <img src="/images/dog_walking.png" alt="Walking Dog" className="w-full h-full" />
+    </motion.div>
   )
 
   const Dog = () => (
@@ -106,16 +82,6 @@ export function StudyFocusAppComponent() {
       transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
     >
       <img src="/images/dog_default.png" alt="Dog" className="w-full h-full" />
-    </motion.div>
-  )
-
-  const HappyDog = () => (
-    <motion.div
-      className="w-48 h-48"
-      animate={{ y: [0, -10, 0] }}
-      transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
-    >
-      <img src="/images/dog_default.png" alt="Happy Dog" className="w-full h-full" />
     </motion.div>
   )
 
@@ -137,17 +103,23 @@ export function StudyFocusAppComponent() {
       )}
 
       {screen === 'timer' && (
-        <div className="text-center w-full">
-          <div className="text-4xl font-bold mb-4">{formatTime(timeLeft)}</div>
-          <WalkingDog />
-          <Button onClick={stopTimer} className="mt-4">タイマーを止める</Button>
+        <div className="relative w-full h-full overflow-hidden">
+          {/* Timer and Dog */}
+          <div className="relative z-10 text-center w-full">
+            <div className="text-4xl font-bold mb-4">{formatTime(timeLeft)}</div>
+
+            {/* Dog */}
+            <WalkingDog />
+
+            <Button onClick={stopTimer} className="mt-4">タイマーを止める</Button>
+          </div>
         </div>
       )}
 
       {screen === 'complete' && (
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4">完了！</h2>
-          <HappyDog />
+          <Dog />
           <p className="my-4">勉強時間: {formatTime(studyTime)}</p>
           <Button onClick={() => setScreen('start')}>もう一度</Button>
         </div>
