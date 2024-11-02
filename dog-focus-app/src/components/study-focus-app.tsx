@@ -104,9 +104,6 @@ export function StudyFocusAppComponent() {
 
       {screen === 'timer' && (
         <div className="relative w-full h-full overflow-hidden">
-          {/* Background GIF */}
-          <img src="/images/moderate_continuous_cloud_animation.gif" alt="Background" className="absolute inset-0 w-full h-full object-cover -z-10" />
-
           {/* Timer and Dog */}
           <div className="relative z-10 text-center w-full">
             <div className="text-4xl font-bold mb-4">{formatTime(timeLeft)}</div>
