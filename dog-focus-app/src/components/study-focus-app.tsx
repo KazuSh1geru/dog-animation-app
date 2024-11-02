@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
-import { Happy, Home } from "@/components/DogAnimation";
+import { Happy, Home, Walking } from "@/components/DogAnimation";
 import { WalkingDog } from "@/components/Dog";
 export function StudyFocusAppComponent() {
   const [screen, setScreen] = useState<"start" | "timer" | "complete">("start");
@@ -96,7 +96,7 @@ export function StudyFocusAppComponent() {
             </div>
 
             {/* Dog */}
-            <WalkingDog />
+            <Walking />
 
             <Button onClick={stopTimer} className="mt-4">
               タイマーを止める
