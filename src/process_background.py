@@ -54,6 +54,6 @@ for frame_path in original_frames:
 # ステップ3: 処理したフレームをAPNGとして保存
 frames = [Image.open(frame_path) for frame_path in processed_frames]
 apng_path = './animated_transparent_video.png'
-frames[0].save(apng_path, save_all=True, append_images=frames[1:], duration=100, loop=0, format="PNG")
+frames[0].save(apng_path, save_all=True, append_images=frames[1:], duration=40, loop=0, format="PNG")
 
 print(f"APNG saved at {apng_path}")
