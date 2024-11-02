@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
-
+import { DogAnimation } from "@/components/DogAnimation";
 export function StudyFocusAppComponent() {
   const [screen, setScreen] = useState<"start" | "timer" | "complete">("start");
   const [showBubble, setShowBubble] = useState(false);
@@ -91,18 +91,6 @@ export function StudyFocusAppComponent() {
     >
       <img src="/images/dog_default.png" alt="Dog" className="w-full h-full" />
     </motion.div>
-  );
-
-  const DogAnimation = () => (
-    <div className="w-48 h-48">
-      <video
-        src="/videos/dog_animation.mp4"
-        className="w-full h-full"
-        autoPlay
-        loop
-        muted
-      />
-    </div>
   );
 
   return (
