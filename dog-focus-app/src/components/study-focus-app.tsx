@@ -87,16 +87,16 @@ export function StudyFocusAppComponent() {
           <path d="M0 50 Q 25 0, 50 50 T 100 50 V100 H0" fill="#4ade80" />
         </svg>
       </motion.div>
-      
+
       {/* Dog */}
       <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2">
-        <img src="/images/dog_default.png" alt="Dog" className="w-24 h-24" />
+        <img src="/images/dog_default.png" alt="Dog" className="w-48 h-48" />
       </div>
     </div>
   )
 
   const Dog = () => (
-    <img src="/images/dog_default.png" alt="Dog" className="w-24 h-24" />
+    <img src="/images/dog_default.png" alt="Dog" className="w-48 h-48" />
   )
 
   const HappyDog = () => (
