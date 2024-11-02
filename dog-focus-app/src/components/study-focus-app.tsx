@@ -90,13 +90,13 @@ export function StudyFocusAppComponent() {
 
       {/* Dog */}
       <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2">
-        <img src="/images/dog_default.png" alt="Dog" className="w-48 h-48" />
+        <img src="/images/dog_walking.png" alt="DogWalking" className="w-48 h-48" />
       </div>
     </div>
   )
 
   const Dog = () => (
-    <img src="/images/dog_default.png" alt="Dog" className="w-48 h-48" />
+    <img src="/images/dog_default.png" alt="DogWalking" className="w-48 h-48" />
   )
 
   const HappyDog = () => (
