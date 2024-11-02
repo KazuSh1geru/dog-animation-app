@@ -85,16 +85,6 @@ export function StudyFocusAppComponent() {
     </motion.div>
   )
 
-  const HappyDog = () => (
-    <motion.div
-      className="w-48 h-48"
-      animate={{ y: [0, -10, 0] }}
-      transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
-    >
-      <img src="/images/dog_default.png" alt="Happy Dog" className="w-full h-full" />
-    </motion.div>
-  )
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       {screen === 'start' && (
@@ -115,12 +105,12 @@ export function StudyFocusAppComponent() {
       {screen === 'timer' && (
         <div className="relative w-full h-full overflow-hidden">
           {/* Background GIF */}
-          <img src="/path/to/moderate_continuous_cloud_animation.gif" alt="Background" className="absolute inset-0 w-full h-full object-cover -z-10" />
+          <img src="/images/moderate_continuous_cloud_animation.gif" alt="Background" className="absolute inset-0 w-full h-full object-cover -z-10" />
 
           {/* Timer and Dog */}
           <div className="relative z-10 text-center w-full">
             <div className="text-4xl font-bold mb-4">{formatTime(timeLeft)}</div>
-            
+
             {/* Dog */}
             <WalkingDog />
 
@@ -132,7 +122,7 @@ export function StudyFocusAppComponent() {
       {screen === 'complete' && (
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4">完了！</h2>
-          <HappyDog />
+          <Dog />
           <p className="my-4">勉強時間: {formatTime(studyTime)}</p>
           <Button onClick={() => setScreen('start')}>もう一度</Button>
         </div>
