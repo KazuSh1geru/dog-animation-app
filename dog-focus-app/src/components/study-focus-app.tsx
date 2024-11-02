@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 import { DogAnimation } from "@/components/DogAnimation";
+import { WalkingDog, Dog } from "@/components/Dog";
 export function StudyFocusAppComponent() {
   const [screen, setScreen] = useState<"start" | "timer" | "complete">("start");
   const [showBubble, setShowBubble] = useState(false);
@@ -66,30 +67,6 @@ export function StudyFocusAppComponent() {
         </Button>
         <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rotate-45"></div>
       </div>
-    </motion.div>
-  );
-
-  const WalkingDog = () => (
-    <motion.div
-      className="w-48 h-48 mx-auto"
-      animate={{ y: [0, -10, 0] }}
-      transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
-    >
-      <img
-        src="/images/dog_walking.png"
-        alt="Walking Dog"
-        className="w-full h-full"
-      />
-    </motion.div>
-  );
-
-  const Dog = () => (
-    <motion.div
-      className="w-48 h-48"
-      animate={{ y: [0, -10, 0] }}
-      transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
-    >
-      <img src="/images/dog_default.png" alt="Dog" className="w-full h-full" />
     </motion.div>
   );
 
