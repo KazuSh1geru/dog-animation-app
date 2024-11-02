@@ -2,11 +2,14 @@ import cv2
 # import numpy as np
 import os
 from PIL import Image
-# import shutil
+import argparse
 
-DIR_PATH = "./dog-focus-app/public"
+DIR_PATH = "./dog-focus-app/public/videos/"
 # 動画ファイルのパス
-video_path = os.path.join(DIR_PATH, 'videos/dog_animation.mp4')
+parser = argparse.ArgumentParser()
+parser.add_argument('--video_path', type=str, default='home.mp4')
+args = parser.parse_args()
+video_path = os.path.join(DIR_PATH, args.video_path)
 
 # フレームを保存するディレクトリ
 frames_dir = './video_frames/'
