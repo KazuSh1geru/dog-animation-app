@@ -100,22 +100,13 @@ export function StudyFocusAppComponent() {
   )
 
   const HappyDog = () => (
-    <motion.svg
-      width="100"
-      height="100"
-      viewBox="0 0 100 100"
-      className="w-24 h-24"
+    <motion.div
+      className="w-48 h-48"
       animate={{ y: [0, -10, 0] }}
       transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
     >
-      <circle cx="50" cy="50" r="40" fill="#8B4513" />
-      <circle cx="35" cy="40" r="5" fill="black" />
-      <circle cx="65" cy="40" r="5" fill="black" />
-      <path d="M 30 60 Q 50 80 70 60" stroke="black" strokeWidth="2" fill="none" />
-      <circle cx="30" cy="80" r="10" fill="#8B4513" />
-      <circle cx="70" cy="80" r="10" fill="#8B4513" />
-      <path d="M 70 20 L 90 10 L 80 30" fill="#8B4513" />
-    </motion.svg>
+      <img src="/images/dog_default.png" alt="Happy Dog" className="w-full h-full" />
+    </motion.div>
   )
 
   return (
