@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { AnimatePresence } from "framer-motion";
 import { Happy, Home, Walking } from "@/components/DogAnimation";
 import { SpeechBubble } from "@/components/SpeechBubble";
 import { TimerDisplay } from "@/components/TimerDisplay";
+import { CompleteScreen } from "@/components/CompleteScreen";
 export function StudyFocusAppComponent() {
   const [screen, setScreen] = useState<"start" | "timer" | "complete">("start");
   const [showBubble, setShowBubble] = useState(false);
@@ -80,12 +80,11 @@ export function StudyFocusAppComponent() {
       )}
 
       {screen === "complete" && (
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">完了！</h2>
-          <Happy />
-          <p className="my-4">勉強時間: {formatTime(studyTime)}</p>
-          <Button onClick={() => setScreen("start")}>もう一度</Button>
-        </div>
+        <CompleteScreen
+          studyTime={studyTime}
+          formatTime={formatTime}
+          resetScreen={setScreen}
+        />
       )}
     </div>
   );
