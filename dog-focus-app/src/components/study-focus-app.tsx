@@ -47,6 +47,7 @@ export function StudyFocusAppComponent() {
   };
 
   return (
+    // TODO: start画面として切り出す.
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       {screen === "start" && (
         <div className="text-center relative">
