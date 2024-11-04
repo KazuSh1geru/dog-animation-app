@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 import { Happy, Home, Walking } from "@/components/DogAnimation";
+import { SpeechBubble } from "@/components/SpeechBubble";
 export function StudyFocusAppComponent() {
   const [screen, setScreen] = useState<"start" | "timer" | "complete">("start");
   const [showBubble, setShowBubble] = useState(false);
@@ -45,29 +45,29 @@ export function StudyFocusAppComponent() {
       .padStart(2, "0")}`;
   };
 
-  const SpeechBubble = () => (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.8 }}
-      className="absolute left-1/2 bottom-full mb-4 transform -translate-x-1/2"
-    >
-      <div className="bg-white p-4 rounded-lg shadow-lg relative">
-        <div className="text-lg font-bold mb-2">タイマーをセット</div>
-        <Input
-          type="number"
-          placeholder="分数を入力"
-          value={timerDuration}
-          onChange={(e) => setTimerDuration(Number(e.target.value))}
-          className="mb-2"
-        />
-        <Button onClick={startTimer} className="w-full">
-          開始
-        </Button>
-        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rotate-45"></div>
-      </div>
-    </motion.div>
-  );
+  // const SpeechBubble = () => (
+  //   <motion.div
+  //     initial={{ opacity: 0, scale: 0.8 }}
+  //     animate={{ opacity: 1, scale: 1 }}
+  //     exit={{ opacity: 0, scale: 0.8 }}
+  //     className="absolute left-1/2 bottom-full mb-4 transform -translate-x-1/2"
+  //   >
+  //     <div className="bg-white p-4 rounded-lg shadow-lg relative">
+  //       <div className="text-lg font-bold mb-2">タイマーをセット</div>
+  //       <Input
+  //         type="number"
+  //         placeholder="分数を入力"
+  //         value={timerDuration}
+  //         onChange={(e) => setTimerDuration(Number(e.target.value))}
+  //         className="mb-2"
+  //       />
+  //       <Button onClick={startTimer} className="w-full">
+  //         開始
+  //       </Button>
+  //       <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rotate-45"></div>
+  //     </div>
+  //   </motion.div>
+  // );
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
@@ -82,7 +82,15 @@ export function StudyFocusAppComponent() {
           <p className="text-lg font-medium text-gray-600">
             犬をクリックしてスタート
           </p>
-          <AnimatePresence>{showBubble && <SpeechBubble />}</AnimatePresence>
+          <AnimatePresence>
+            {showBubble && (
+              <SpeechBubble
+                timerDuration={timerDuration}
+                setTimerDuration={setTimerDuration}
+                startTimer={startTimer}
+              />
+            )}
+          </AnimatePresence>
         </div>
       )}
 
