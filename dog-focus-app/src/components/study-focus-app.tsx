@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
-import { Happy, Home, Walking } from "@/components/DogAnimation";
+import { Home } from "@/components/DogAnimation";
 import { SpeechBubble } from "@/components/SpeechBubble";
 import { TimerDisplay } from "@/components/TimerDisplay";
 import { CompleteScreen } from "@/components/CompleteScreen";
