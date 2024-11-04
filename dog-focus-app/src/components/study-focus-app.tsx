@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { AnimatePresence } from "framer-motion";
 import { Happy, Home, Walking } from "@/components/DogAnimation";
 import { SpeechBubble } from "@/components/SpeechBubble";
+import { TimerDisplay } from "@/components/TimerDisplay";
 export function StudyFocusAppComponent() {
   const [screen, setScreen] = useState<"start" | "timer" | "complete">("start");
   const [showBubble, setShowBubble] = useState(false);
@@ -71,23 +72,11 @@ export function StudyFocusAppComponent() {
       )}
 
       {screen === "timer" && (
-        <div className="relative w-full h-full overflow-hidden flex items-center justify-center">
-          {/* Timer and Dog */}
-          <div className="relative z-10 text-center w-full">
-            <div className="text-4xl font-bold mb-4">
-              {formatTime(timeLeft)}
-            </div>
-
-            {/* Dog */}
-            <div className="flex justify-center">
-              <Walking />
-            </div>
-
-            <Button onClick={stopTimer} className="mt-4">
-              タイマーを止める
-            </Button>
-          </div>
-        </div>
+        <TimerDisplay
+          timeLeft={timeLeft}
+          formatTime={formatTime}
+          stopTimer={stopTimer}
+        />
       )}
 
       {screen === "complete" && (
